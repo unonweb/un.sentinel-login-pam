@@ -1,11 +1,10 @@
 #!/usr/bin/bash
 
 # script location
-TARGET_FILE="${BASH_SOURCE[0]:-$0}"
-SCRIPT_PATH="$(readlink -f "${TARGET_FILE}")"
-SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE}")")
-SCRIPT_DIR=$(dirname -- "${SCRIPT_PATH}")
-SCRIPT_PARENT=$(dirname "${SCRIPT_DIR}")
+TARGET_FILE="${0}" # -> /usr/local/bin/un.sentinel-login-pam.sh
+SCRIPT_PATH="$(readlink -f "${TARGET_FILE}")" # -> /opt/un.sentinel-login-pam/src/main.sh
+SCRIPT_DIR=$(dirname "${SCRIPT_PATH}") # -> /opt/un.sentinel-login-pam/src
+SCRIPT_PARENT=$(dirname "${SCRIPT_DIR}") # -> /opt/un.sentinel-login-pam
 
 PATH_CONFIG="${SCRIPT_PARENT}/config.cfg"
 PATH_DEFAULTS="${SCRIPT_PARENT}/defaults.cfg"
