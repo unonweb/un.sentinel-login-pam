@@ -89,16 +89,17 @@ function main {
 				# STAGE 2: SIGKILL (9)
 				local remaining_pids
 
-                if [ -n "${PAM_TTY}" ]; then
+                if [[ -n "${PAM_TTY}" && "${PAM_TTY}" != "ssh" ]]; then
                     remaining_pids=$(ps --tty "${PAM_TTY}" -o pid=)
                 fi
 
-				if [[ -z "${remaining_pids}" ]]; then
-                    remaining_pids=$(ps --user "${PAM_USER}" -o pid=)
+				if [[ -z "${remaining_pids}" && -n "${PPID}" ]]; then
+                    remaining_pids=$(ps --ppid "${PPID}" -o pid=)
                 fi
 
 				if [ -n "${remaining_pids}" ]; then
                     # Kill remaining processes
+					log "Killing remaining PIDs: $(echo ${remaining_pids})"
                     kill -9 ${remaining_pids} 2>/dev/null
                 fi
 			fi
