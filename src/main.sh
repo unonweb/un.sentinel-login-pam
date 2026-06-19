@@ -57,7 +57,15 @@ function main {
 			log "RESULT: failed"
 			
 			# ALERT
-			echo "ALERT: Unauthorized login detected for user '${PAM_USER}' on $(date)" | \
+			local msg=""
+			msg+="DATE: $(date "+%Y-%m-%d %H:%M:%S")"
+			msg+="PAM_TYPE: ${PAM_TYPE}\n"
+			msg+="PAM_USER: ${PAM_USER}\n"
+			msg+="PAM_TTY: ${PAM_TTY}\n"
+			msg+="PARENT PROCESS: $(ps --pid ${PPID} -o comm,pid --no-headers)\n"
+			msg+="TIMEOUT: ${TIMEOUT}\n"
+
+			echo -e "${msg}" | \
 			mail -s "${MAIL_SUBJECT}" "${MAIL_DST}" 2>/dev/null
 
 			# SET session_pids
