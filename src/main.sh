@@ -58,7 +58,7 @@ function main {
 			
 			# ALERT
 			local msg=""
-			msg+="DATE: $(date "+%Y-%m-%d %H:%M:%S")"
+			msg+="DATE: $(date "+%Y-%m-%d %H:%M:%S")\n"
 			msg+="PAM_TYPE: ${PAM_TYPE}\n"
 			msg+="PAM_USER: ${PAM_USER}\n"
 			msg+="PAM_TTY: ${PAM_TTY}\n"
