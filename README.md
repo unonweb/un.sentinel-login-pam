@@ -3,6 +3,7 @@ STATE
 
 - [x] Works when logged in via `machinectl shell <machine>`
 - [x] Works when logged in via `ssh user@host`
+- [x] Works with Ansible (of course you need to disarm the sentinel, too)
 
 
 NOTES
@@ -21,6 +22,14 @@ Ansible
 
 Make sure that ansible passes the sentinel, too.
 
+```yml
+# safe_pass
+- name: Pass sentinel
+  tags: always
+  ansible.builtin.file:
+    path: PATH_TO_YOUR_SECRET_FILE
+    state: touch
+```
 
 Processes
 ---------
@@ -55,4 +64,24 @@ INSTALL
 # /etc/pam.d/common-session
 # at the bottom:
 session optional pam_exec.so PATH_TO_YOUR_SCRIPT
+```
+
+Hide disarm cmd from history
+----------------------------
+
+Hide it by prepending whitespace (if you forget that it will be logged!).
+
+### bash
+
+```sh
+# ~/.bashrc
+HISTCONTROL=ignorespace # or 
+HISTCONTROL=ignoreboth
+```
+
+### zsh
+
+```sh
+# ~/.zshrc
+setopt HIST_IGNORE_SPACE
 ```
