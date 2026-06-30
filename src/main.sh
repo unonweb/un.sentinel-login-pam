@@ -39,6 +39,12 @@ function main {
 		exit 0
 	fi
 
+	# MKDIR log
+	if [[ ! -d "${LOG_DIR}" ]]; then
+		log "<6> Creating state dir at: ${LOG_DIR}"
+		mkdir -p "${LOG_DIR}"
+	fi
+
 	log "------"
 	log "PAM_TYPE: ${PAM_TYPE}"
 	log "PAM_USER: ${PAM_USER}"
